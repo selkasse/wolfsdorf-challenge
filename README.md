@@ -1,18 +1,18 @@
-# Salesforce DX Project: Next Steps
+# SLA Management Prototype
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+## Objective: Give users a clear understanding of which SLAs apply to a Case, e.g. when deadlines are approaching, and what actions need to be taken.
 
-## How Do You Plan to Deploy Your Changes?
+### Task: Create a lightweight system that
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+- models SLAs
+- applies them automatically
 
-## Configure Your Salesforce DX Project
+## Approach
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+- use the standard picklist field on Case, `Priority`
+- use standard fields `SlaStartDate` and `SlaExitDate`
+  - upon Case creation, set `SlaStartDate` to Case creation datetime
+    - set `SlaExitDate` to 1/4/8 hours from start date, depending on priority
+  - once the First Response SLA window has passed (or once the customer has been responded to via Chatter), set `SlaExitDate` to the Resolution SLA time
+    - keep `SlaStartDate` the same (assumption: Resolution SLA starts from the time the Case was opened, NOT from the time the First Response SLA was satisfied)
+- display a LWC (data table) on the Case that shows SLA status/actions
