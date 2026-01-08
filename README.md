@@ -14,13 +14,14 @@
 
 ## Approach
 
-- use OOTB Entitlements/SLA features
+- use OOTB Entitlements/Milestones/SLA features
+  - Entitlement: `Standard Case`
+  - Milestone: `First Response to Customer`
+  - Milestone: `Resolution`
+  - for both Milestones, check the `Enable Apex class for time trigger (minutes)` checkbox to use the custom calculation
+    - Apex class: `FirstResponseMilestoneCalculator`
+    - Apex class: `ResolutionMilestoneCalculator`
 
 - use the standard picklist field on Case, `Priority` to determine SLA priority
-- use a custom `VIP__c` checkbox field on Account to determine VIP status
-- use standard fields `SlaStartDate` and `SlaExitDate`
-  - upon Case creation, set `SlaStartDate` to Case creation datetime
-    - set `SlaExitDate` to 1/4/8 hours from start date, depending on priority
-  - once the First Response SLA window has passed (or once the customer has been responded to via Chatter), set `SlaExitDate` to the Resolution SLA time
-    - keep `SlaStartDate` the same
-    - display a LWC (data table) on the Case that shows SLA status/actions
+- use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status
+- use standard `Status` field with added custom value `Responded`, which is used to determine the First Response SLA
