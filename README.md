@@ -14,10 +14,16 @@
 
 ## Approach
 
-- TODO: upon case creation, automatically set the `Standard Case` Entitlement
 - TODO: create Quick Action to mark as Responded
 - TODO: create Quick Action to mark as Resolved
-- TODO: pull down the `First Response SLA Flow` and `Resolution Time SLA Flow` and commit them to the repo
+
+- TODO: pull down the following Flows and commit them to the repo
+  - `First Response SLA Flow`
+  - `Resolution Time SLA Flow`
+  - `Assign Entitlement`
+
+- TODO: update page layouts to remove any but the necessary fields
+
 - TODO: create `lightning-datatable` to display at the top of the layout
   - for each milestone, color-code based on "on-track", "approaching breach" or "breached"
   - provide "mark complete" action for each Milestone
@@ -28,6 +34,7 @@
 
 - use OOTB Entitlements/Milestones/SLA features
   - Entitlement: `Standard Case`
+    - Flow: `Assign Entitlement`
   - Milestone: `First Response to Customer`
     - Flow: `First Response SLA Flow` marks the Milestone as complete when the Case is put into a `Responded` Status
   - Milestone: `Resolution`
