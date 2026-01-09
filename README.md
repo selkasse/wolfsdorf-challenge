@@ -14,14 +14,24 @@
 
 ## Approach
 
+- TODO: upon case creation, automatically set the `Standard Case` Entitlement
+- TODO: create Quick Action to mark as Responded
+- TODO: create Quick Action to mark as Resolved
+- TODO: pull down the `First Response SLA Flow` and `Resolution Time SLA Flow` and commit them to the repo
+- TODO: create `lightning-datatable` to display at the top of the layout
+  - for each milestone, color-code based on "on-track", "approaching breach" or "breached"
+  - provide "mark complete" action for each Milestone
+
+- use the standard `Priority` picklist field on Case to determine SLA priority
+- use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status
+- use standard `Status` field with added custom value `Responded`, which is used to determine the First Response SLA
+
 - use OOTB Entitlements/Milestones/SLA features
   - Entitlement: `Standard Case`
   - Milestone: `First Response to Customer`
+    - Flow: `First Response SLA Flow` marks the Milestone as complete when the Case is put into a `Responded` Status
   - Milestone: `Resolution`
+    - Flow: `Resolution Time SLA Flow` marks the Milestone as complete when the Case is put into a `Resolved` Status
   - for both Milestones, check the `Enable Apex class for time trigger (minutes)` checkbox to use the custom calculation
     - Apex class: `FirstResponseMilestoneCalculator`
     - Apex class: `ResolutionMilestoneCalculator`
-
-- use the standard picklist field on Case, `Priority` to determine SLA priority
-- use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status
-- use standard `Status` field with added custom value `Responded`, which is used to determine the First Response SLA
