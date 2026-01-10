@@ -1,6 +1,9 @@
 import { LightningElement, api } from "lwc";
 import getMilestones from "@salesforce/apex/SLA_Controller.getMilestones";
+import completeMilestone from "@salesforce/apex/SLA_Controller.completeMilestone";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
+const ACTIONS = [{ label: "Complete Milestone", name: "complete" }];
 const columns = [
   {
     label: "Milestone",
@@ -24,13 +27,25 @@ const columns = [
       hour12: true // This gives you the AM/PM format
     }
   },
-  { label: "Time Left (Hours: Minutes)", fieldName: "TimeRemainingInHrs" }
+  {
+    label: "Completion Date",
+    fieldName: "CompletionDate",
+    type: "date", // Use "date" type; it handles datetime values
+    typeAttributes: {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true // This gives you the AM/PM format
+    }
+  },
+  { label: "Time Left (Hours: Minutes)", fieldName: "TimeRemainingInHrs" },
+  {
+    type: "action",
+    typeAttributes: { rowActions: ACTIONS }
+  }
 ];
-
-// const actions = [
-//     { label: 'Show details', name: 'show_details' },
-//     { label: 'Delete', name: 'delete' }
-// ];
 
 export default class SlaDatatable extends LightningElement {
   @api recordId;
@@ -67,6 +82,37 @@ export default class SlaDatatable extends LightningElement {
       })
       .catch((error) => {
         console.error("Error fetching milestones: ", error);
+      });
+  }
+
+  handleRowAction(event) {
+    const actionName = event.detail.action.name;
+    const row = event.detail.row;
+
+    if (actionName === "complete") {
+      this.completeSLA(row);
+    }
+  }
+
+  completeSLA(row) {
+    // Use the flattened MilestoneName to decide the logic in Apex
+    console.log("Completing milestone:", row.MilestoneName);
+    completeMilestone({
+      caseId: this.recordId,
+      milestoneName: row.MilestoneName
+    })
+      .then(() => {
+        this.dispatchEvent(
+          new ShowToastEvent({
+            title: "Success",
+            message: `${row.MilestoneName} updated via Case Status`,
+            variant: "success"
+          })
+        );
+        return this.getData(); // Refresh the table
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 }

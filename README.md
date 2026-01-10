@@ -32,6 +32,10 @@
   - provide "mark complete" action for each Milestone
 
 - TODO: create Mermaid diagram that shows data model
+  - Account
+  - Case
+  - CaseMilestone
+- TODO: remove "Close Case" quick action from layout, along with any other actions that are not needed
 
 - use the standard `Priority` picklist field on Case to determine SLA priority
 - use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status
