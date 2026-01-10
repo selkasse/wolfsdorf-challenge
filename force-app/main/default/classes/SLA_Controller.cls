@@ -4,10 +4,14 @@ public with sharing class SLA_Controller {
     return [
       SELECT
         Id,
+        ElapsedTimeInHrs,
         TimeRemainingInHrs,
         TimeRemainingInMins,
         MileStoneType.Id,
-        MilestoneType.Name
+        MilestoneType.Name,
+        TargetDate,
+        CompletionDate,
+        IsCompleted
       FROM CaseMilestone
       WHERE CaseId = :caseId
     ];

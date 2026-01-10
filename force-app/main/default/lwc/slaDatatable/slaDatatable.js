@@ -11,6 +11,19 @@ const columns = [
       target: "_blank"
     }
   },
+  {
+    label: "Target Date",
+    fieldName: "TargetDate",
+    type: "date", // Use "date" type; it handles datetime values
+    typeAttributes: {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true // This gives you the AM/PM format
+    }
+  },
   { label: "Time Left (Hours: Minutes)", fieldName: "TimeRemainingInHrs" }
 ];
 

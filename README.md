@@ -14,8 +14,6 @@
 
 ## Approach
 
-- TODO: add column that shows the due date (datetime)
-- TODO: add refresh button to show updated due dates
 - TODO: add `Status` column that calculates/displays:
   - `On Track` (Blue)
   - `Approaching Breach` (Yellow)
@@ -32,6 +30,8 @@
 - TODO: create `lightning-datatable` to display at the top of the layout
   - for each milestone, color-code based on "on-track", "approaching breach" or "breached"
   - provide "mark complete" action for each Milestone
+
+- TODO: create Mermaid diagram that shows data model
 
 - use the standard `Priority` picklist field on Case to determine SLA priority
 - use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status
