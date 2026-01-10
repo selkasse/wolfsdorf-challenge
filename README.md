@@ -14,8 +14,13 @@
 
 ## Approach
 
-- TODO: create Quick Action to mark as Responded
-- TODO: create Quick Action to mark as Resolved
+- TODO: add column that shows the due date (datetime)
+- TODO: add refresh button to show updated due dates
+- TODO: add `Status` column that calculates/displays:
+  - `On Track` (Blue)
+  - `Approaching Breach` (Yellow)
+  - `Breached` (Red)
+  - `Completed` (Green)
 
 - TODO: pull down the following Flows and commit them to the repo
   - `First Response SLA Flow`

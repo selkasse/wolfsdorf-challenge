@@ -1,5 +1,9 @@
 <template>
   <div style="height: 300px">
+    <lightning-button
+      label="Refresh"
+      onclick={handleRefresh}
+    ></lightning-button>
     <lightning-datatable key-field="id" data={milestones} columns={columns}>
     </lightning-datatable>
   </div>
