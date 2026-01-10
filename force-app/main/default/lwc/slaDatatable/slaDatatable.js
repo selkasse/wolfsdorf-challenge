@@ -2,7 +2,15 @@ import { LightningElement, api } from "lwc";
 import getMilestones from "@salesforce/apex/SLA_Controller.getMilestones";
 
 const columns = [
-  { label: "Milestone", fieldName: "MilestoneName" },
+  {
+    label: "Milestone",
+    fieldName: "MilestoneUrl", // This points to the URL string
+    type: "url",
+    typeAttributes: {
+      label: { fieldName: "MilestoneName" }, // This displays the Name as the link text
+      target: "_blank"
+    }
+  },
   { label: "Time Left (Hours: Minutes)", fieldName: "TimeRemainingInHrs" }
 ];
 
@@ -33,7 +41,14 @@ export default class SlaDatatable extends LightningElement {
         this.milestones = result.map((row) => {
           return {
             ...row,
-            MilestoneName: row.MilestoneType ? row.MilestoneType.Name : ""
+            // 1. Create the link path
+            MilestoneUrl: `/lightning/r/CaseMilestone/${row.Id}/view`,
+
+            // 2. Extract the Name for the label
+            MilestoneName: row.MilestoneType ? row.MilestoneType.Name : "",
+
+            // 3. Optional: Clean up the display time
+            TimeRemaining: `${row.TimeRemainingInHrs}:${row.TimeRemainingInMins}`
           };
         });
       })
