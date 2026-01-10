@@ -1,10 +1,17 @@
 <template>
   <div style="height: 300px">
-    <lightning-button
-      label="Refresh"
-      onclick={handleRefresh}
-    ></lightning-button>
-    <lightning-datatable key-field="id" data={milestones} columns={columns}>
-    </lightning-datatable>
+    <lightning-card title="SLA Milestones">
+      <!-- Datatable -->
+      <lightning-datatable key-field="id" data={milestones} columns={columns}>
+      </lightning-datatable>
+
+      <div class="slds-align_absolute-center" style="height: 5rem">
+        <!-- Refresh Button -->
+        <lightning-button
+          label="Refresh"
+          onclick={handleRefresh}
+        ></lightning-button>
+      </div>
+    </lightning-card>
   </div>
 </template>
