@@ -11,25 +11,27 @@
 
 - All Cases must meet SLAs (no Record Type or other criteria must be met)
 - Resolution SLA starts from the time the Case was opened, NOT from the time the First Response SLA was satisfied
+- Cases may be marked as "Resolved" without first completing the "First Response" SLA
+  - Helps adhere to tighter prototype timeline
+  - Covers the scenario where the customer reaches back out to cancel the request
+
+# Data Model
+
+- Account
+  - Entitlement
+    - SLA Policy
+- Case
+  - Account
+  - Entitlement
+    - SLA Policy
 
 ## Approach
-
-- TODO: add `Status` column that calculates/displays:
-  - `On Track` (Blue)
-  - `Approaching Breach` (Yellow)
-  - `Breached` (Red)
-  - `Completed` (Green)
 
 - TODO: pull down the following Flows and commit them to the repo
   - `First Response SLA Flow`
   - `Resolution Time SLA Flow`
-  - `Assign Entitlement`
 
 - TODO: update page layouts to remove any but the necessary fields
-
-- TODO: create `lightning-datatable` to display at the top of the layout
-  - for each milestone, color-code based on "on-track", "approaching breach" or "breached"
-  - provide "mark complete" action for each Milestone
 
 - TODO: create Mermaid diagram that shows data model
   - Account
@@ -43,7 +45,7 @@
 
 - use OOTB Entitlements/Milestones/SLA features
   - Entitlement: `Standard Case`
-    - Flow: `Assign Entitlement`
+    - Entitlement Assignment rule to always assign `Standard Case` Entitlement
   - Milestone: `First Response to Customer`
     - Flow: `First Response SLA Flow` marks the Milestone as complete when the Case is put into a `Responded` Status
   - Milestone: `Resolution`

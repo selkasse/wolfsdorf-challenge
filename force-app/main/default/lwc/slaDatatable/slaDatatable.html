@@ -2,14 +2,14 @@
   <div style="height: 300px">
     <lightning-card title="SLA Milestones">
       <!-- Datatable -->
-      <lightning-datatable
+      <c-custom-sla-table
         key-field="id"
         data={milestones}
         columns={columns}
         onrowaction={handleRowAction}
         hide-checkbox-column
       >
-      </lightning-datatable>
+      </c-custom-sla-table>
 
       <div class="slds-align_absolute-center" style="height: 5rem">
         <!-- Refresh Button -->

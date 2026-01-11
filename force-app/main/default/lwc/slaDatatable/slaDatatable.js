@@ -15,6 +15,11 @@ const columns = [
     }
   },
   {
+    label: "Status",
+    fieldName: "MilestoneStatus",
+    type: "milestoneStatus" // Use the key from customTypes
+  },
+  {
     label: "Target Date",
     fieldName: "TargetDate",
     type: "date", // Use "date" type; it handles datetime values
@@ -27,6 +32,7 @@ const columns = [
       hour12: true // This gives you the AM/PM format
     }
   },
+  { label: "Time Left (Hours: Minutes)", fieldName: "TimeRemainingInHrs" },
   {
     label: "Completion Date",
     fieldName: "CompletionDate",
@@ -40,7 +46,6 @@ const columns = [
       hour12: true // This gives you the AM/PM format
     }
   },
-  { label: "Time Left (Hours: Minutes)", fieldName: "TimeRemainingInHrs" },
   {
     type: "action",
     typeAttributes: { rowActions: ACTIONS }
@@ -67,8 +72,28 @@ export default class SlaDatatable extends LightningElement {
     getMilestones({ caseId: this.recordId })
       .then((result) => {
         this.milestones = result.map((row) => {
+          let status = "On Track";
+          const now = new Date();
+          const target = new Date(row.TargetDate);
+          const start = new Date(row.StartDate); // Ensure you add StartDate to SOQL
+
+          if (row.IsCompleted) {
+            status = "Complete";
+          } else if (now > target) {
+            status = "Breached";
+          } else {
+            // Calculate percentage
+            const totalTime = target - start;
+            const timeElapsed = now - start;
+            const percentUsed = (timeElapsed / totalTime) * 100;
+
+            if (percentUsed >= 80) {
+              status = "Approaching Breach";
+            }
+          }
           return {
             ...row,
+            MilestoneStatus: status,
             // 1. Create the link path
             MilestoneUrl: `/lightning/r/CaseMilestone/${row.Id}/view`,
 
