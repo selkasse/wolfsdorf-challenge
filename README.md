@@ -95,3 +95,12 @@ erDiagram
     - displays color-coded badges based on the SLA milestone status
   - provides row-level action for each Milestone, allowing the user to mark them as completed
   <img width="1252" height="459" alt="image" src="https://github.com/user-attachments/assets/993e2c3b-8ff9-46f6-a262-7eaa5cf01abb" />
+
+## Usage
+
+Play the video below for an overview on using the system
+
+https://github.com/user-attachments/assets/a90fea63-5b32-4320-b994-7aead74a2d76
+
+
+
