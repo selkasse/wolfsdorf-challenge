@@ -77,6 +77,8 @@ erDiagram
   - Entitlement Process: `Standard Case Policy`
   - Entitlement: `Standard Case Entitlement`
     - Entitlement Assignment rule to always assign `Standard Case` Entitlement
+    <img width="1468" height="387" alt="image" src="https://github.com/user-attachments/assets/399236ff-733b-4f2a-96a3-be5d2917e57d" />
+
   - Milestone: `First Response to Customer`
     - Flow: `First Response SLA Flow` marks the Milestone as complete when the Case is put into a `Responded` Status
   - Milestone: `Resolution`
@@ -84,9 +86,12 @@ erDiagram
   - for both Milestones, check the `Enable Apex class for time trigger (minutes)` checkbox to use the custom calculation
     - Apex class: `FirstResponseMilestoneCalculator`
     - Apex class: `ResolutionMilestoneCalculator`
+      <img width="834" height="743" alt="image" src="https://github.com/user-attachments/assets/0e3ba0d2-b492-4e3a-9bab-4d10aa8f24de" />
+
 
 - display SLA Milestones on the Case within a custom `lightning-datatable`:
   - LWC: `slaDatatable`
   - defines a custom type within a `mileStoneStatusCell` LWC
     - displays color-coded badges based on the SLA milestone status
   - provides row-level action for each Milestone, allowing the user to mark them as completed
+  <img width="1252" height="459" alt="image" src="https://github.com/user-attachments/assets/993e2c3b-8ff9-46f6-a262-7eaa5cf01abb" />
