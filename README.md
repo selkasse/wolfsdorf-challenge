@@ -18,35 +18,64 @@
 # Data Model
 
 ```mermaid
-flowchart TD
-    A[Christmas] -->|Get money| B(Go shopping)
-    B --> C{Let me think}
-    C -->|One| D[Laptop]
-    C -->|Two| E[iPhone]
-    C -->|Three| F[fa:fa-car Car]
-```
+erDiagram
+    ACCOUNT ||--o{ CASE : submits
+    ACCOUNT ||--o{ ENTITLEMENT : has
+    ENTITLEMENT_PROCESS ||--o{ ENTITLEMENT : "defines rules for"
+    ENTITLEMENT ||--o{ CASE : "applies to"
+    ENTITLEMENT_PROCESS ||--|{ MILESTONE : "contains steps"
+    CASE ||--o{ CASE_MILESTONE : "is tracked by"
 
-- Account
-  - Entitlement
-    - SLA Policy
-- Case
-  - Account
-  - Entitlement
-    - SLA Policy
+    ACCOUNT {
+        string Name
+        string CustomerPriority__c
+    }
+
+    CASE {
+        string AccountId
+        string EntitlementId
+        string Status
+    }
+
+    ENTITLEMENT {
+        string Name
+        id AccountId
+        id EntitlementProcessId
+        date StartDate
+        date EndDate
+    }
+
+    ENTITLEMENT_PROCESS {
+        string Name
+        string Description
+        boolean IsActive
+    }
+
+    MILESTONE {
+        string Name
+        integer Minutes
+    }
+
+    CASE_MILESTONE {
+        string CaseId
+        datetime TargetDate
+        datetime CompletionDate
+        boolean IsCompleted
+        boolean IsViolated
+        number TimeRemainingInHrs
+        number TimeRemainingInMins
+    }
+```
 
 ## Approach
 
-- TODO: create Mermaid diagram that shows data model
-  - Account
-  - Case
-  - CaseMilestone
-
 - use the standard `Priority` picklist field on Case to determine SLA priority
 - use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status
-- use standard `Status` field with added custom value `Responded`, which is used to determine the First Response SLA
+- use standard `Status` field on `Case` with added custom value `Responded`, which is used to determine the First Response SLA
 
 - use OOTB Entitlements/Milestones/SLA features
-  - Entitlement: `Standard Case`
+  - Entitlement Process: `Standard Case Policy`
+  - Entitlement: `Standard Case Entitlement`
     - Entitlement Assignment rule to always assign `Standard Case` Entitlement
   - Milestone: `First Response to Customer`
     - Flow: `First Response SLA Flow` marks the Milestone as complete when the Case is put into a `Responded` Status
@@ -55,3 +84,9 @@ flowchart TD
   - for both Milestones, check the `Enable Apex class for time trigger (minutes)` checkbox to use the custom calculation
     - Apex class: `FirstResponseMilestoneCalculator`
     - Apex class: `ResolutionMilestoneCalculator`
+
+- display SLA Milestones on the Case within a custom `lightning-datatable`:
+  - LWC: `slaDatatable`
+  - defines a custom type within a `mileStoneStatusCell` LWC
+    - displays color-coded badges based on the SLA milestone status
+  - provides row-level action for each Milestone, allowing the user to mark them as completed
