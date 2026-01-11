@@ -17,6 +17,15 @@
 
 # Data Model
 
+```mermaid
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+```
+
 - Account
   - Entitlement
     - SLA Policy
@@ -27,17 +36,10 @@
 
 ## Approach
 
-- TODO: pull down the following Flows and commit them to the repo
-  - `First Response SLA Flow`
-  - `Resolution Time SLA Flow`
-
-- TODO: update page layouts to remove any but the necessary fields
-
 - TODO: create Mermaid diagram that shows data model
   - Account
   - Case
   - CaseMilestone
-- TODO: remove "Close Case" quick action from layout, along with any other actions that are not needed
 
 - use the standard `Priority` picklist field on Case to determine SLA priority
 - use standard `CustomerPriority__c` field on Account with a value of `VIP` to determine VIP status

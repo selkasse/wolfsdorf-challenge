@@ -55,6 +55,7 @@ const columns = [
 export default class SlaDatatable extends LightningElement {
   @api recordId;
 
+  isLoading = false;
   milestones = [];
   columns = columns;
 
@@ -69,6 +70,7 @@ export default class SlaDatatable extends LightningElement {
   }
 
   getData() {
+    this.isLoading = true;
     getMilestones({ caseId: this.recordId })
       .then((result) => {
         this.milestones = result.map((row) => {
@@ -107,6 +109,9 @@ export default class SlaDatatable extends LightningElement {
       })
       .catch((error) => {
         console.error("Error fetching milestones: ", error);
+      })
+      .finally(() => {
+        this.isLoading = false; // Stop spinner
       });
   }
 
@@ -120,6 +125,7 @@ export default class SlaDatatable extends LightningElement {
   }
 
   completeSLA(row) {
+    this.isLoading = true; // Start spinner for the update
     // Use the flattened MilestoneName to decide the logic in Apex
     console.log("Completing milestone:", row.MilestoneName);
     completeMilestone({
@@ -138,6 +144,7 @@ export default class SlaDatatable extends LightningElement {
       })
       .catch((error) => {
         console.error(error);
+        this.isLoading = false; // Stop spinner on error
       });
   }
 }

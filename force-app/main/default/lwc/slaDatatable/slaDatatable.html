@@ -1,6 +1,16 @@
 <template>
   <div style="height: 300px">
     <lightning-card title="SLA Milestones">
+      <!-- Spinner -->
+      <template if:true={isLoading}>
+        <lightning-spinner
+          alternative-text="Loading"
+          size="medium"
+          variant="brand"
+        >
+        </lightning-spinner>
+      </template>
+
       <!-- Datatable -->
       <c-custom-sla-table
         key-field="id"
