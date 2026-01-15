@@ -100,6 +100,9 @@ erDiagram
 Play the video below for an overview on using the system, or follow these high-level steps:
 
 1. Create a new Case, leaving the `Entitlement Name` field blank, as it will be populated automatically via automation
+
+- Use the required `Priority` field on the layout to drive the SLA calculation
+
 2. Either select an existing Account, or create a new one (VIP status is denoted by the `Customer Priority` field)
 3. If wanting to verify the `Status` badges change as time passes, press the `Refresh` button at the bottom of the component
 
