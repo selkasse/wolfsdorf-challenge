@@ -102,6 +102,9 @@ Play the video below for an overview on using the system, or follow these high-l
 1. Create a new Case, leaving the `Entitlement Name` field blank, as it will be populated automatically via automation
 2. Either select an existing Account, or create a new one (VIP status is denoted by the `Customer Priority` field)
 3. If wanting to verify the `Status` badges change as time passes, press the `Refresh` button at the bottom of the component
+
+- The `Approaching Breach` status is displayed when 80% of the allowed SLA time has passed (see `slaDatatable.js` in the `getData()` function)
+
 4. Use the row-level actions at the far right of each row to mark a Milestone as complete. The table will auto-refresh upon doing so
 
 https://github.com/user-attachments/assets/a90fea63-5b32-4320-b994-7aead74a2d76
